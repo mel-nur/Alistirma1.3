@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sevgilimin Doğum Günü</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+        
+        .heart {
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+        }
+        
+        .photo-frame {
+            border: 15px solid #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            transform: rotate(-5deg);
+            transition: all 0.3s ease;
+        }
+        
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+        
+        .countdown-box {
+            background: rgba(255,255,255,0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .handwritten {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .title {
+            font-family: 'Pacifico', cursive;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .polaroid-effect {
+            background: white;
+            padding: 15px 15px 60px 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: rotate(3deg);
+            transition: all 0.3s ease;
+        }
+        
+        .polaroid-effect:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+        
+        .polaroid-caption {
+            text-align: center;
+            margin-top: 15px;
+            font-family: 'Dancing Script', cursive;
+            color: #333;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-100 to-purple-200 min-h-screen overflow-x-hidden">
+    <div id="confetti-container"></div>
+    
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="title text-5xl md:text-6xl text-pink-600 mb-4">Doğum Günün Kutlu Olsun <span class="heart text-red-500">❤️</span></h1>
+            <p class="handwritten text-2xl text-purple-700">1 yıl 4 ay 6 gündür beraberiz!</p>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="flex flex-col lg:flex-row items-center justify-between gap-8 mb-12">
+            <!-- Photo Section -->
+            <div class="w-full lg:w-1/2 flex justify-center">
+                <div class="photo-frame relative">
+                    <img src="ah.jpg" alt="Romantic Couple" class="w-80 h-80 object-covr">
+                    <div class="absolute -bottom-6 -right-6 bg-white p-2 rounded-full shadow-lg">
+                        <span class="text-red-500 text-4xl heart">❤️</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Message Section -->
+            <div class="w-full lg:w-1/2 bg-white bg-opacity-80 rounded-xl p-8 shadow-lg">
+                <h2 class="handwritten text-4xl text-pink-600 mb-6">Sevgilim,</h2>
+                <p class="text-gray-700 text-lg mb-4">Bugün senin özel günün ve benim için de en özel günlerden biri. Hayatıma girdiğin ilk günden beri her şey daha güzel oldu.</p>
+                <p class="text-gray-700 text-lg mb-4">1 yıl 4 ay 6 gündür yanımda olduğun için çok şanslıyım. Sen benim en büyük mutluluğumsun.</p>
+                <p class="text-gray-700 text-lg mb-6">Doğum günün kutlu olsun aşkım! Umarım bu özel günün tüm hayallerini gerçekleştirir ve sonsuza kadar mutlu olursun.</p>
+                <div class="flex justify-end">
+                    <p class="handwritten text-2xl text-pink-600">Seni çok seviyorum</p>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Countdown Timer -->
+        <div class="countdown-box p-6 max-w-2xl mx-auto mb-12 text-center">
+            <h3 class="text-2xl font-bold text-purple-700 mb-4">Doğum Gününe Kalan Süre:</h3>
+            <div id="countdown" class="flex justify-center gap-4">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-pink-600" id="days">00</div>
+                    <div class="text-gray-600">Gün</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-pink-600" id="hours">00</div>
+                    <div class="text-gray-600">Saat</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-pink-600" id="minutes">00</div>
+                    <div class="text-gray-600">Dakika</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-pink-600" id="seconds">00</div>
+                    <div class="text-gray-600">Saniye</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Memory Lane -->
+        <section class="mb-16">
+            <h2 class="title text-4xl text-center text-purple-600 mb-8">Birlikte Geçirdiğimiz Güzel Anlar</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="polaroid-effect">
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Memory 1" class="w-full h-48 object-cover">
+                    <p class="polaroid-caption">İlk buluşmamız</p>
+                </div>
+                <div class="polaroid-effect">
+                    <img src="https://images.unsplash.com/photo-1529333164857-4230dd53c137?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Memory 2" class="w-full h-48 object-cover">
+                    <p class="polaroid-caption">İlk tatilimiz</p>
+                </div>
+                <div class="polaroid-effect">
+                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Memory 3" class="w-full h-48 object-cover">
+                    <p class="polaroid-caption">Mutlu bir an</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Love Meter -->
+        <section class="bg-white bg-opacity-80 rounded-xl p-8 max-w-2xl mx-auto shadow-lg mb-12">
+            <h2 class="title text-3xl text-center text-pink-600 mb-6">Aşk Ölçer</h2>
+            <p class="text-center text-gray-700 mb-4">Seni ne kadar sevdiğimi görmek ister misin?</p>
+            <button id="loveBtn" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-full mx-auto block transition duration-300 transform hover:scale-105">
+                Tıkla ve Gör!
+            </button>
+            <div id="loveResult" class="mt-6 text-center hidden">
+                <p class="handwritten text-3xl text-pink-600 mb-2">Seni seviyorum...</p>
+                <div class="w-full bg-gray-200 rounded-full h-6">
+                    <div id="loveMeter" class="bg-pink-500 h-6 rounded-full" style="width: 0%"></div>
+                </div>
+                <p id="loveText" class="mt-2 text-gray-700"></p>
+            </div>
+        </section>
+        
+        <!-- Surprise Button -->
+        <div class="text-center mb-12">
+            <button id="surpriseBtn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transition duration-300 transform hover:scale-110">
+                <i class="fas fa-gift mr-2"></i> Sürprizimi Al!
+            </button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-pink-600 text-white text-center py-6">
+        <p class="handwritten text-2xl">Seni sevmek hayatımdaki en güzel şey ❤️</p>
+        <p class="mt-2">© 2023 Sevgilin Tarafından Özenle Hazırlandı</p>
+    </footer>
+    
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            // Set the birthday date (YYYY, MM-1, DD)
+            const birthday = new Date(new Date().getFullYear(), 11, 15); // December 15th (11 is December because months are 0-indexed)
+            const now = new Date();
+            
+            // If birthday has passed this year, set for next year
+            if (now > birthday) {
+                birthday.setFullYear(birthday.getFullYear() + 1);
+            }
+            
+            const diff = birthday - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Love Meter
+        document.getElementById('loveBtn').addEventListener('click', function() {
+            const loveResult = document.getElementById('loveResult');
+            const loveMeter = document.getElementById('loveMeter');
+            const loveText = document.getElementById('loveText');
+            
+            // Animate the meter
+            let width = 0;
+            const interval = setInterval(() => {
+                width += 1;
+                loveMeter.style.width = width + '%';
+                
+                if (width >= 100) {
+                    clearInterval(interval);
+                    loveText.textContent = "Seni sonsuza kadar seveceğim!  ❤️";
+                } else if (width >= 80) {
+                    loveText.textContent = "Seni evrendeki tüm yıldızlardan daha çok seviyorum!";
+                } else if (width >= 60) {
+                    loveText.textContent = "Seni okyanusların derinliğinden daha çok seviyorum!";
+                } else if (width >= 40) {
+                    loveText.textContent = "Seni dağların yüksekliğinden daha çok seviyorum!";
+                } else if (width >= 20) {
+                    loveText.textContent = "Seni çok ama çok seviyorum!";
+                }
+            }, 30);
+            
+            loveResult.classList.remove('hidden');
+        });
+        
+        // Surprise Button
+        document.getElementById('surpriseBtn').addEventListener('click', function() {
+            createConfetti();
+            
+            // Show a sweet alert
+            alert('Doğum günün kutlu olsun aşkım! Sana verebileceğim en büyük hediye seni sevmek. ❤️');
+        });
+        
+        // Confetti Effect
+        function createConfetti() {
+            const colors = ['#ff0000', '#ff1493', '#ff69b4', '#ff00ff', '#9400d3'];
+            const container = document.getElementById('confetti-container');
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                container.appendChild(confetti);
+                
+                const animationDuration = Math.random() * 3 + 2;
+                
+                confetti.style.animation = `fall ${animationDuration}s linear forwards`;
+                
+                // Create keyframes for the falling animation
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes fall {
+                        to {
+                            transform: translateY(100vh) rotate(${Math.random() * 360}deg);
+                            opacity: 1;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                    style.remove();
+                }, animationDuration * 1000);
+            }
+        }
+        
+        // Add some initial confetti when page loads
+        window.addEventListener('load', () => {
+            setTimeout(createConfetti, 1000);
+        });
+    </script>
+</body>
+</html>
